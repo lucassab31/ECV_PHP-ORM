@@ -1,8 +1,7 @@
 <?php
     require_once('./Models/Table.php');
-    require_once('./Models/User.php');
 
-    class Post extends Table {
+    class User extends Table {
 
         public function __construct() {
             $table_name = 'posts';
@@ -13,12 +12,24 @@
 
         public function hydrate() {
             parent::hydrate();
-            $this->comments = Post::getComments();
-            $this->user = User::getOne($this->id_user);
+            $this->posts = User::getPosts();
+            $this->comments = User::getComments();
+        }
+
+        public function getPosts() {
+            $sSQL = 'SELECT id FROM posts WHERE id_user = ' . $this->{$this->primary_key_field_name};
+            $tData = my_fetch_array($sSQL);
+            $tPosts = [];
+            foreach ($tData as $sPost) {
+                $oPost = new Comment();
+                $oPost->{$oPost->primary_key_field_name} = $sPost;
+                $tPosts[] = $oPost->hydrate();
+            }
+            return $tPosts;
         }
 
         public function getComments() {
-            $sSQL = 'SELECT id FROM comments WHERE id_post = ' . $this->{$this->primary_key_field_name};
+            $sSQL = 'SELECT id FROM comments WHERE id_user = ' . $this->{$this->primary_key_field_name};
             $tData = my_fetch_array($sSQL);
             $tComments = [];
             foreach ($tData as $sComment) {

@@ -125,12 +125,12 @@ class Table
 	// l'attribut $this->{$this->primary_key_field_name}
 	public function hydrate()
 	{
+        $sSQL = 'SELECT * FROM '.$this->table_name.' WHERE '.$this->primary_key_field_name.'='.$this->{$this->primary_key_field_name};
+        $tData = my_fetch_array($sSQL);
 
-
-		// hydrate level 2
-		// ex : pour film, ajouter un attribut genre contenant une instance hydratée de sont genre
-		// ET ajouter un attribut distributeur contenant une instance hydratée de sont genrdistributeur
-
+        foreach ($this->fields_names as $field) {
+            $this->{$field} = $tData[0][$field];
+        }
 	}
 
 }
