@@ -18,7 +18,7 @@
         }
 
         public function getComments() {
-            $sSQL = 'SELECT id FROM comments WHERE id_post = ' . $this->{$this->primary_key_field_name};
+            $sSQL = 'SELECT '.$this->{$this->primary_key_field_name}.' FROM comments WHERE id_post = ' . $this->{$this->primary_key_field_name};
             $tData = my_fetch_array($sSQL);
             $tComments = [];
             foreach ($tData as $sComment) {
