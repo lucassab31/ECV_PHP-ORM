@@ -143,7 +143,12 @@ class Table
 
 	public function hydrate()
 	{
+        $sSQL = 'SELECT * FROM '.$this->table_name.' WHERE '.$this->primary_key_field_name.'='.$this->{$this->primary_key_field_name};
+        $tData = my_fetch_array($sSQL);
 
+        foreach ($this->fields_names as $field) {
+            $this->{$field} = $tData[0][$field];
+        }
 	}
 
 }
