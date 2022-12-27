@@ -7,7 +7,7 @@ function my_query($query)
 	mysqli_report(MYSQLI_REPORT_OFF);
 
 	if (empty($link))
-		$link = @mysqli_connect('localhost', 'root', '', 'cinema');
+		$link = @mysqli_connect('localhost', 'root', '', 'ecv_orm_project');
 
 	if (!$link)
 		die("Failed to connect to MySQL: " . mysqli_connect_error());
@@ -41,15 +41,13 @@ function my_insert_id()
 // classe generique Table
 class Table
 {
-	public $primary_key_field_name;
-	public $table_name;
-	public $fields_names;
+	public static $primary_key_field_name;
+	public static $table_name;
+	public static $fields_names;
 
-	public function __construct(string $table_name,
-								string $primary_key_field_name,
-								array $fields_names)
+	public function __construct(string $table_name, string $primary_key_field_name, array $fields_names)
 	{
-		$this->table_name = $table_name;
+		self::$table_name = $table_name;
 		$this->primary_key_field_name = $primary_key_field_name;
 		$this->fields_names = $fields_names;
 	}
@@ -57,7 +55,6 @@ class Table
 	public function save() 
 	{
 		$query = '';
-
 		// si $this->id_film est set alors on genere une requete UPDATE
 		if (isset($this->{$this->primary_key_field_name}))
 		{
@@ -111,25 +108,41 @@ class Table
 	// renvoie un tableau d'objets avec une instance hydratée pour chaque ligne de la table
 	public static function getAll()
 	{
-		// indice : self::
+		$sInstance = static::class;
+		$query = 'SELECT * FROM '.self::$table_name;
+		$data = my_fetch_array($query);
+		$objects = [];
+		foreach ($data as $line)
+		{
+			$oInstance = new $sInstance();
+			foreach (self::$fields_names as $field => $value)
+			{
+				$oInstance->$field = $line[$value];
+			}
+			$objects[] = $oInstance;
+		}
+		return $objects;
 	}
 
 	// renvoie une instance hydratée pour la ligne de la table correspondant a la PK fournie en parametre
 	public static function getOne(int $pk_value)
 	{
-		// indice : self::
+		$sInstance = static::class;
+		$oInstance = new $sInstance();
+		$oInstance->{$oInstance->self::$primary_key_field_name} = $pk_value;
+		return $oInstance->hydrate();
 	}
 
 	// récupère dans l'instance courante toutes les valeurs correspondantes à la ligne
 	// dont la valeur de la pk est deja présente dans l'instance dans
 	// l'attribut $this->{$this->primary_key_field_name}
+
+	// hydrate level 2
+	// ex : pour film, ajouter un attribut genre contenant une instance hydratée de sont genre
+	// ET ajouter un attribut distributeur contenant une instance hydratée de sont genrdistributeur
+
 	public function hydrate()
 	{
-
-
-		// hydrate level 2
-		// ex : pour film, ajouter un attribut genre contenant une instance hydratée de sont genre
-		// ET ajouter un attribut distributeur contenant une instance hydratée de sont genrdistributeur
 
 	}
 
