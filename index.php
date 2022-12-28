@@ -31,10 +31,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link <?= ($sPage == 'home' ? 'active' : '') ?>" href="http://localhost/ECV/PHP/OBJ/Projet/">Accueil</a>
+                            <a class="nav-link <?= ($sPage == 'home' ? 'active' : '') ?>" href="?">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= ($sPage == 'home' ? 'active' : '') ?>" href="http://localhost/ECV/PHP/OBJ/Projet/">Ajouter un post</a>
+                            <a class="nav-link <?= ($sPage == 'post-add' ? 'active' : '') ?>" href="?page=post-add">Ajouter un post</a>
                         </li>
                     </ul>
                 </div>
@@ -56,6 +56,19 @@
                     $oPost = PostController::getPost($iId);
                     require_once('./Views/posts/post.php');
                 }
+            }
+            elseif ($sPage == 'post-add') {
+                require_once('./Views/posts/add.php');
+            }
+            elseif ($sPage == 'post-store') {
+                require_once('./Controllers/PostController.php');
+                $oPost = new Post();
+                $oPost->title = $_POST['title'];
+                $oPost->content = $_POST['content'];
+                $oPost->user = $_POST['user'];
+                $oPost->created_at = date('Y-m-d H:i:s');
+                $oPost->save();
+                header('Location: ?page=home');
             }
         ?>
     </main>

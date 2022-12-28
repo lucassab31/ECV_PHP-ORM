@@ -56,12 +56,12 @@ class Table
 	{
 		$query = '';
 		// si $this->id_film est set alors on genere une requete UPDATE
-		if (isset($this->{$this->primary_key_field_name}))
+		if (isset($this->{static::$primary_key_field_name}))
 		{
-			$query .= 'UPDATE '.$this->table_name.' SET ';
+			$query .= 'UPDATE '.static::$table_name.' SET ';
 
 			$first = true;
-			foreach ($this->fields_names as $field)
+			foreach (static::$fields_names as $field)
 			{
 				if ($first)
 					$first = false;
@@ -69,15 +69,15 @@ class Table
 					$query .= ', ';
 				$query .= $field.' = \''.$this->{$field}.'\'';
 			}
-			$query .= ' WHERE id_film = '.$this->{$this->primary_key_field_name};
-			echo $query.'<br>';
+			$query .= ' WHERE id_film = '.$this->{static::$primary_key_field_name};
+			// echo $query.'<br>';
 			$res = my_query($query);
 		}
 		else // sinon on genere une requete INSERT et on recupere l'id auto-incrémenté
 		{
-			$query .= 	"INSERT INTO $this->table_name (";
+			$query .= 	"INSERT INTO ".static::$table_name." (";
 			$first = true;
-			foreach ($this->fields_names as $field)
+			foreach (static::$fields_names as $field)
 			{
 				if ($first)
 					$first = false;
@@ -87,7 +87,7 @@ class Table
 			}
 			$query .= ") VALUES (";
 			$first = true;
-			foreach ($this->fields_names as $field)
+			foreach (static::$fields_names as $field)
 			{
 				if ($first)
 					$first = false;
@@ -98,10 +98,10 @@ class Table
 
 			$query .= ")";
 						
-			echo $query.'<br>';
+			// echo $query.'<br>';
 			$res = my_query($query);
 			$pk_val = my_insert_id();
-			$this->{$this->primary_key_field_name} = $pk_val;
+			$this->{static::$primary_key_field_name} = $pk_val;
 		}
 	}
 
