@@ -23,7 +23,8 @@
             foreach ($tData as $sPost) {
                 $oPost = new Comment();
                 $oPost->{$oPost->primary_key_field_name} = $sPost;
-                $tPosts[] = $oPost->hydrate();
+                $oPost->hydrate();
+                $tPosts[] = $oPost;
             }
             return $tPosts;
         }
@@ -35,7 +36,8 @@
             foreach ($tData as $sComment) {
                 $oComment = new Comment();
                 $oComment->{$oComment->primary_key_field_name} = $sComment;
-                $tComments[] = $oComment->hydrate();
+                $oComment->hydrate();
+                $tComments[] = $oComment;
             }
             return $tComments;
         }

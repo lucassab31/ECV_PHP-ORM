@@ -1,5 +1,5 @@
 <?php
-
+/*
 //require_once('models/Table.php') // classe mere de l'ORM
 //require_once('models/Post.php') // un exempe de classe fille de l'ORM (comme Film, ou Genre)
 
@@ -50,3 +50,5 @@ elseif($page == 'signup') // pour recevoir le formulaire d'inscription
 {
 
 }
+
+*/

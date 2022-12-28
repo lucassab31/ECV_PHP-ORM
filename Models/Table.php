@@ -7,7 +7,7 @@ function my_query($query)
 	mysqli_report(MYSQLI_REPORT_OFF);
 
 	if (empty($link))
-		$link = @mysqli_connect('localhost', 'root', '', 'ecv_orm_project');
+		$link = @mysqli_connect('localhost', 'root', 'lucas31', 'ecv_orm_project');
 
 	if (!$link)
 		die("Failed to connect to MySQL: " . mysqli_connect_error());
@@ -47,9 +47,9 @@ class Table
 
 	public function __construct(string $table_name, string $primary_key_field_name, array $fields_names)
 	{
-		self::$table_name = $table_name;
-		$this->primary_key_field_name = $primary_key_field_name;
-		$this->fields_names = $fields_names;
+		// self::$table_name = $table_name;
+		// $this->primary_key_field_name = $primary_key_field_name;
+		// $this->fields_names = $fields_names;
 	}
 
 	public function save() 
@@ -109,15 +109,16 @@ class Table
 	public static function getAll()
 	{
 		$sInstance = static::class;
-		$query = 'SELECT * FROM '.self::$table_name;
+		$query = 'SELECT * FROM '.static::$table_name;
 		$data = my_fetch_array($query);
 		$objects = [];
 		foreach ($data as $line)
 		{
 			$oInstance = new $sInstance();
-			foreach (self::$fields_names as $field => $value)
+			$oInstance->id = $line[static::$primary_key_field_name];
+			foreach (static::$fields_names as $field)
 			{
-				$oInstance->$field = $line[$value];
+				$oInstance->$field = $line[$field];
 			}
 			$objects[] = $oInstance;
 		}
@@ -129,8 +130,9 @@ class Table
 	{
 		$sInstance = static::class;
 		$oInstance = new $sInstance();
-		$oInstance->{$oInstance->self::$primary_key_field_name} = $pk_value;
-		return $oInstance->hydrate();
+		$oInstance->{static::$primary_key_field_name} = $pk_value;
+		$oInstance->hydrate();
+		return $oInstance;
 	}
 
 	// récupère dans l'instance courante toutes les valeurs correspondantes à la ligne
@@ -143,10 +145,10 @@ class Table
 
 	public function hydrate()
 	{
-        $sSQL = 'SELECT * FROM '.$this->table_name.' WHERE '.$this->primary_key_field_name.'='.$this->{$this->primary_key_field_name};
+        $sSQL = 'SELECT * FROM '.static::$table_name.' WHERE '.static::$primary_key_field_name.'='.$this->{static::$primary_key_field_name};
         $tData = my_fetch_array($sSQL);
 
-        foreach ($this->fields_names as $field) {
+        foreach (static::$fields_names as $field) {
             $this->{$field} = $tData[0][$field];
         }
 	}

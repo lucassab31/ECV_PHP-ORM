@@ -1,21 +1,24 @@
 <?php
     require_once('./Models/Table.php');
-    require_once('./Models/Comment.php');
     require_once('./Models/Post.php');
 
     class Comment extends Table {
 
+        public static $table_name = 'comments';
+        public static $primary_key_field_name = 'id_comment';
+        public static $fields_names = ['post_id', 'content', 'user', 'created_at'];
+
         public function __construct() {
-            $table_name = 'posts';
-            $primary_key_field_name = 'id';
-            $fields_names = ['title', 'description', 'created', 'modifed', 'is_user'];
-            parent::__construct($table_name, $primary_key_field_name, $fields_names);
+            // $table_name = 'posts';
+            // $primary_key_field_name = 'id_comment';
+            // $fields_names = ['post_id', 'content', 'user', 'created_at'];
+            // parent::__construct($table_name, $primary_key_field_name, $fields_names);
         }
 
-        public function hydrate() {
-            parent::hydrate();
-            $this->post = Post::getOne($this->id_post);
-            $this->user = User::getOne($this->id_user);
-        }
+        // public function hydrate() {
+        //     parent::hydrate();
+        //     $this->post = Post::getOne($this->id_post);
+        //     // $this->user = User::getOne($this->id_user);
+        // }
     }
 ?>

@@ -1,5 +1,5 @@
 <?php
-
+/*
 // minilib MySQL
 function my_query($query)
 {
@@ -134,3 +134,4 @@ class Table
 	}
 
 }
+*/
