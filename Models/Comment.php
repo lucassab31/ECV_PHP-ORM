@@ -15,10 +15,9 @@
             // parent::__construct($table_name, $primary_key_field_name, $fields_names);
         }
 
-        // public function hydrate() {
-        //     parent::hydrate();
-        //     $this->post = Post::getOne($this->id_post);
-        //     // $this->user = User::getOne($this->id_user);
-        // }
+        public function hydrate() {
+            parent::hydrate();
+        }
+
     }
 ?>

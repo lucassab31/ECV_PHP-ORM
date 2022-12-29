@@ -43,32 +43,41 @@
     </header>
     <main class="mt-4">
         <?php
-            if ($sPage == 'home') {
+            if ($sPage == 'home') 
+            {
                 require_once('./Controllers/PostController.php');
                 $tPosts = PostController::getAll();
                 require_once('./Views/posts/index.php');
             }
-            elseif ($sPage == 'post') {
+            elseif ($sPage == 'post') 
+            {
                 if ($iId == 0) 
                     require_once('./Views/pages/undefined.php');
-                else {
+                else 
+                {
                     require_once('./Controllers/PostController.php');
                     $oPost = PostController::getPost($iId);
                     require_once('./Views/posts/post.php');
                 }
             }
-            elseif ($sPage == 'post-add') {
+            elseif ($sPage == 'post-add') 
+            {
                 require_once('./Views/posts/add.php');
             }
-            elseif ($sPage == 'post-store') {
+            elseif ($sPage == 'post-store') 
+            {
                 require_once('./Controllers/PostController.php');
-                $oPost = new Post();
-                $oPost->title = $_POST['title'];
-                $oPost->content = $_POST['content'];
-                $oPost->user = $_POST['user'];
-                $oPost->created_at = date('Y-m-d H:i:s');
-                $oPost->save();
+                $oPost = PostController::store();
                 header('Location: ?page=home');
+            }
+            elseif($sPage == 'comment-store'){
+                require_once('./Controllers/CommentController.php');
+                $oComment = CommentController::store();
+                header('Location: ?page=post&id='.$oComment->post_id);
+            }
+            else 
+            {
+                require_once('./Views/pages/undefined.php');
             }
         ?>
     </main>
