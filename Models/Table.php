@@ -109,7 +109,7 @@ class Table
 	public static function getAll()
 	{
 		$sInstance = static::class;
-		$query = 'SELECT * FROM '.static::$table_name;
+		$query = 'SELECT * FROM '.static::$table_name.' ORDER BY created_at DESC';
 		$data = my_fetch_array($query);
 		$objects = [];
 		foreach ($data as $line)
