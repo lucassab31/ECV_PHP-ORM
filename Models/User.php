@@ -7,10 +7,6 @@
         public static $table_name = 'users';
         public static $fields_names = ['email', 'password'];
 
-        public function __construct() {
-            
-        }
-
         public function hydrate() {
             parent::hydrate();
             $this->posts = User::getPosts();
@@ -41,6 +37,17 @@
                 $tComments[] = $oComment;
             }
             return $tComments;
+        }
+
+        public static function getOneByMail($sEmail) {
+            $sSQL = 'SELECT * FROM ' . static::$table_name . ' WHERE email = "' . $sEmail . '"';
+            $tData = my_fetch_array($sSQL);
+            if (count($tData) == 0) {
+                return false;
+            }
+            $oUser = new User();
+            $oUser->hydrate($tData[0]);
+            return $oUser;
         }
     }
 ?>
