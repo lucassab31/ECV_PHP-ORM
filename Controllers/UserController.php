@@ -10,24 +10,25 @@ class UserController
         $sPassword = $_POST['password'];
         $oUser = User::getOneByMail($sEmail);
         if ($oUser == false) {
-            return false;
+            return null;
         }
-        if (password_verify($sPassword, $oUser->password)) {
+        if (md5($sPassword)== $oUser->password) {
             $_SESSION['user'] = $oUser;
-            return true;
+            return $oUser;
         }
-        return false;
+        return null;
     }
 
-    public static function register()
+    public static function store()
     {
         $sEmail = $_POST['email'];
         $sPassword = $_POST['password'];
         $oUser = new User();
         $oUser->email = $sEmail;
-        $oUser->password = password_hash($sPassword, PASSWORD_DEFAULT);
+        $oUser->password = md5($sPassword);
         $oUser->save();
-        return true;
+        $_SESSION['user'] = $oUser;
+        return $oUser;
     }
 
     public static function logout()

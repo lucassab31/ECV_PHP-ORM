@@ -34,7 +34,7 @@
                             <a class="nav-link <?= ($sPage == 'home' ? 'active' : '') ?>" href="?">Accueil</a>
                         </li>
                         <?php
-                            if (isset($_SESSION['email'])) {
+                            if (isset($_SESSION['user'])) {
                                 ?>
                                 <li class="nav-item">
                                     <a class="nav-link <?= ($sPage == 'post-add' ? 'active' : '') ?>" href="?page=post-add">Ajouter un post</a>
