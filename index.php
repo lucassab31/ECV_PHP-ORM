@@ -66,29 +66,46 @@
             }
             elseif ($sPage == 'post') 
             {
-                if ($iId == 0) 
-                    require_once('./Views/pages/undefined.php');
-                else 
-                {
-                    require_once('./Controllers/PostController.php');
-                    $oPost = PostController::getPost($iId);
-                    require_once('./Views/posts/post.php');
+                if (!isset($_SESSION['user_id'])) {
+                    header('Location: ?page=login');
+                }else{
+                    if ($iId == 0) 
+                        require_once('./Views/pages/undefined.php');
+                    else 
+                    {
+                        require_once('./Controllers/PostController.php');
+                        $oPost = PostController::getPost($iId);
+                        require_once('./Views/posts/post.php');
+                    }
                 }
             }
             elseif ($sPage == 'post-add') 
             {
-                require_once('./Views/posts/add.php');
+                if (!isset($_SESSION['user_id'])) {
+                    header('Location: ?page=login');
+                }else{
+                    require_once('./Views/posts/add.php');
+                }
             }
             elseif ($sPage == 'post-store') 
             {
-                require_once('./Controllers/PostController.php');
-                $oPost = PostController::store();
-                header('Location: ?page=home');
+                if (!isset($_SESSION['user_id'])) {
+                    header('Location: ?page=login');
+                }else{
+                    require_once('./Controllers/PostController.php');
+                    $oPost = PostController::store();
+                    header('Location: ?page=home');
+                }
+                
             }
             elseif($sPage == 'comment-store'){
-                require_once('./Controllers/CommentController.php');
-                $oComment = CommentController::store();
-                header('Location: ?page=post&id='.$oComment->post_id);
+                if (!isset($_SESSION['user_id'])) {
+                    header('Location: ?page=login');
+                }else{
+                    require_once('./Controllers/CommentController.php');
+                    $oComment = CommentController::store();
+                    header('Location: ?page=post&id='.$oComment->post_id);
+                }
             }
             elseif($sPage == 'login'){
                 require_once('./Views/auth/login.php');
