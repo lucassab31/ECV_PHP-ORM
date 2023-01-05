@@ -13,7 +13,7 @@ class UserController
             return null;
         }
         if (md5($sPassword)== $oUser->password) {
-            $_SESSION['user'] = $oUser;
+            $_SESSION['user_id'] = $oUser->user_id;
             return $oUser;
         }
         return null;
@@ -27,7 +27,7 @@ class UserController
         $oUser->email = $sEmail;
         $oUser->password = md5($sPassword);
         $oUser->save();
-        $_SESSION['user'] = $oUser;
+        $_SESSION['user_id'] = $oUser->user_id;
         return $oUser;
     }
 
