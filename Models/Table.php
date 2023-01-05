@@ -7,7 +7,7 @@ function my_query($query)
 	mysqli_report(MYSQLI_REPORT_OFF);
 
 	if (empty($link))
-		$link = @mysqli_connect('localhost', 'root', 'lucas31', 'ecv_orm_project');
+		$link = @mysqli_connect('localhost', 'root', 'root', 'ecv_orm_project');
 
 	if (!$link)
 		die("Failed to connect to MySQL: " . mysqli_connect_error());
@@ -44,13 +44,6 @@ class Table
 	public static $primary_key_field_name;
 	public static $table_name;
 	public static $fields_names;
-
-	public function __construct(string $table_name, string $primary_key_field_name, array $fields_names)
-	{
-		// self::$table_name = $table_name;
-		// $this->primary_key_field_name = $primary_key_field_name;
-		// $this->fields_names = $fields_names;
-	}
 
 	public function save() 
 	{
