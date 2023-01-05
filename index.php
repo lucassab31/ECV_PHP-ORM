@@ -33,9 +33,21 @@
                         <li class="nav-item">
                             <a class="nav-link <?= ($sPage == 'home' ? 'active' : '') ?>" href="?">Accueil</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= ($sPage == 'post-add' ? 'active' : '') ?>" href="?page=post-add">Ajouter un post</a>
-                        </li>
+                        <?php
+                            if (isset($_SESSION['email'])) {
+                                ?>
+                                <li class="nav-item">
+                                    <a class="nav-link <?= ($sPage == 'post-add' ? 'active' : '') ?>" href="?page=post-add">Ajouter un post</a>
+                                </li>
+                                <?php
+                            } else {
+                                ?>
+                                <li class="nav-item">
+                                    <a class="nav-link <?= ($sPage == 'user-login' ? 'active' : '') ?>" href="?page=login">Connexion</a>
+                                </li>
+                                <?php
+                            }
+                        ?>
                     </ul>
                 </div>
             </div>
@@ -78,7 +90,13 @@
             elseif($sPage == 'login'){
                 require_once('./Views/auth/login.php');
             }
-            elseif($sPage == 'register'){
+            elseif($sPage == 'user-login'){
+                require_once('./Views/auth/login.php');
+            }
+            elseif($sPage == 'user-register'){
+                require_once('./Views/auth/register.php');
+            }
+            elseif($sPage == 'user-store'){
                 require_once('./Views/auth/register.php');
             }
             else 
