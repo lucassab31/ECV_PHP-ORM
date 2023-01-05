@@ -9,8 +9,8 @@
 
         public function hydrate() {
             parent::hydrate();
-            $this->posts = User::getPosts();
-            $this->comments = User::getComments();
+            // $this->posts = User::getPosts();
+            // $this->comments = User::getComments();
         }
 
         public function getPosts() {
@@ -18,8 +18,8 @@
             $tData = my_fetch_array($sSQL);
             $tPosts = [];
             foreach ($tData as $sPost) {
-                $oPost = new Comment();
-                $oPost->{$oPost->primary_key_field_name} = $sPost;
+                $oPost = new Post();
+                $oPost->{Post::$primary_key_field_name} = $sPost['id_post'];
                 $oPost->hydrate();
                 $tPosts[] = $oPost;
             }

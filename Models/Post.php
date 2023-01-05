@@ -7,7 +7,7 @@
 
         public static $primary_key_field_name = 'id_post';
         public static $table_name = 'posts';
-        public static $fields_names = ['title', 'content', 'id_user', 'created_at'];
+        public static $fields_names = ['title', 'content', 'user_id', 'created_at'];
 
         public function __construct() {
             // $table_name = 'posts';
@@ -19,7 +19,7 @@
         public function hydrate() {
             parent::hydrate();
             $this->comments = Post::getComments();
-            $this->user = User::getOne($this->id_user);
+            $this->user = User::getOne($this->user_id);
         }
 
         public function getComments() {

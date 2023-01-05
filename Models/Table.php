@@ -108,11 +108,12 @@ class Table
 		foreach ($data as $line)
 		{
 			$oInstance = new $sInstance();
-			$oInstance->id = $line[static::$primary_key_field_name];
-			foreach (static::$fields_names as $field)
-			{
-				$oInstance->$field = $line[$field];
-			}
+			$oInstance->{static::$primary_key_field_name} = $line[static::$primary_key_field_name];
+			$oInstance->hydrate();
+			// foreach (static::$fields_names as $field)
+			// {
+			// 	$oInstance->$field = $line[$field];
+			// }
 			$objects[] = $oInstance;
 		}
 		return $objects;
