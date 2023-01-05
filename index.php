@@ -75,6 +75,12 @@
                 $oComment = CommentController::store();
                 header('Location: ?page=post&id='.$oComment->post_id);
             }
+            elseif($sPage == 'login'){
+                require_once('./Views/auth/login.php');
+            }
+            elseif($sPage == 'register'){
+                require_once('./Views/auth/register.php');
+            }
             else 
             {
                 require_once('./Views/pages/undefined.php');
