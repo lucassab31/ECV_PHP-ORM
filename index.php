@@ -39,6 +39,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link <?= ($sPage == 'post-add' ? 'active' : '') ?>" href="?page=post-add">Ajouter un post</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="?page=user-logout">Déconnexion</a>
+                                </li>
                                 <?php
                             } else {
                                 ?>
@@ -91,7 +94,9 @@
                 require_once('./Views/auth/login.php');
             }
             elseif($sPage == 'user-login'){
-                require_once('./Views/auth/login.php');
+                require_once('./Controllers/UserController.php');
+                $oUser = UserController::login();
+                header('Location: ?page=post-add');
             }
             elseif($sPage == 'register'){
                 require_once('./Views/auth/register.php');
@@ -105,6 +110,11 @@
                 } else {
                     header('Location: ?page=post-add');
                 }
+            }
+            elseif($sPage == 'user-logout'){
+                require_once('./Controllers/UserController.php');
+                $oUser = UserController::logout();
+                header('Location: ?page=home');
             }
             else 
             {

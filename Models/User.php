@@ -40,7 +40,7 @@
         }
 
         public static function getOneByMail($sEmail) {
-            $sSQL = 'SELECT * FROM ' . static::$table_name . ' WHERE email = "' . $sEmail . '"';
+            $sSQL = 'SELECT * FROM '.static::$table_name.' WHERE email = "'.$sEmail.'"';
             $tData = my_fetch_array($sSQL);
             if (count($tData) == 0) {
                 return false;

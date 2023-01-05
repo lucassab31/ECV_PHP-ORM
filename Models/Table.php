@@ -7,7 +7,7 @@ function my_query($query)
 	mysqli_report(MYSQLI_REPORT_OFF);
 
 	if (empty($link))
-		$link = @mysqli_connect('localhost', 'root', 'lucas31', 'ecv_orm_project');
+		$link = @mysqli_connect('localhost', 'root', 'root', 'ecv_orm_project');
 
 	if (!$link)
 		die("Failed to connect to MySQL: " . mysqli_connect_error());
@@ -110,10 +110,6 @@ class Table
 			$oInstance = new $sInstance();
 			$oInstance->{static::$primary_key_field_name} = $line[static::$primary_key_field_name];
 			$oInstance->hydrate();
-			// foreach (static::$fields_names as $field)
-			// {
-			// 	$oInstance->$field = $line[$field];
-			// }
 			$objects[] = $oInstance;
 		}
 		return $objects;

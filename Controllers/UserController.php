@@ -12,7 +12,7 @@ class UserController
         if ($oUser == false) {
             return null;
         }
-        if (md5($sPassword)== $oUser->password) {
+        if (md5($sPassword) == $oUser->password) {
             $_SESSION['user_id'] = $oUser->id_user;
             return $oUser;
         }
@@ -35,6 +35,6 @@ class UserController
 
     public static function logout()
     {
-        unset($_SESSION['user']);
+        unset($_SESSION['user_id']);
     }
 }
