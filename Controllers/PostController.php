@@ -14,7 +14,7 @@
             $oPost = new Post();
             $oPost->title = $_POST['title'];
             $oPost->content = $_POST['content'];
-            $oPost->user = $_POST['user'];
+            $oPost->user_id = $_SESSION['user_id'];
             $oPost->created_at = date('Y-m-d H:i:s');
             $oPost->save();
             return $oPost;

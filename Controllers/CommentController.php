@@ -11,7 +11,7 @@
             $oComment = new Comment();
             $oComment->post_id = $_POST['post_id'];
             $oComment->content = $_POST['content'];
-            $oComment->user = $_POST['user'];
+            $oComment->user_id = $_SESSION['user_id'];
             $oComment->created_at = date('Y-m-d H:i:s');
             $oComment->save();
             return $oComment;
