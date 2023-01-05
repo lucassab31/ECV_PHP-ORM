@@ -99,8 +99,12 @@
             elseif($sPage == 'user-store'){
                 require_once('./Controllers/UserController.php');
                 $oUser = UserController::store();
-                header('Location: ?page=post-add');
-                require_once('./Views/auth/register.php');
+                if ($oUser == false) {
+                    $sError = "Email déjà utilisé";
+                    require_once('./Views/auth/register.php');
+                } else {
+                    header('Location: ?page=post-add');
+                }
             }
             else 
             {

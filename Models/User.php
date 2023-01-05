@@ -14,7 +14,7 @@
         }
 
         public function getPosts() {
-            $sSQL = 'SELECT '.$this->{$this->primary_key_field_name}.' FROM posts WHERE id_user = ' . $this->{$this->primary_key_field_name};
+            $sSQL = 'SELECT id_post FROM posts WHERE user_id = ' . $this->{static::$primary_key_field_name};
             $tData = my_fetch_array($sSQL);
             $tPosts = [];
             foreach ($tData as $sPost) {
@@ -27,7 +27,7 @@
         }
 
         public function getComments() {
-            $sSQL = 'SELECT '.$this->{$this->primary_key_field_name}.' FROM comments WHERE id_user = ' . $this->{$this->primary_key_field_name};
+            $sSQL = 'SELECT id_comment FROM comments WHERE user_id = ' . $this->{static::$primary_key_field_name};
             $tData = my_fetch_array($sSQL);
             $tComments = [];
             foreach ($tData as $sComment) {
@@ -46,7 +46,8 @@
                 return false;
             }
             $oUser = new User();
-            $oUser->hydrate($tData[0]);
+            $oUser->id_user = $tData[0]['id_user'];
+            $oUser->hydrate();
             return $oUser;
         }
     }

@@ -4,6 +4,9 @@
             <div class="mb-3">
                 <label for="user" class="form-label">Email</label>
                 <input type="text" class="form-control" id="email" name="email" required>
+                <?php if (isset($sError)) { ?> 
+                    <span class="invalid-feedback"><?= $sError ?></span>
+                <?php } ?>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Mot de passe</label>

@@ -23,6 +23,8 @@ class UserController
     {
         $sEmail = $_POST['email'];
         $sPassword = $_POST['password'];
+        $oVerif = User::getOneByMail($sEmail);
+        if ($oVerif != false) return false;
         $oUser = new User();
         $oUser->email = $sEmail;
         $oUser->password = md5($sPassword);
