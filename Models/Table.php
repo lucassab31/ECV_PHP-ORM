@@ -7,7 +7,7 @@ function my_query($query)
 	mysqli_report(MYSQLI_REPORT_OFF);
 
 	if (empty($link))
-		$link = @mysqli_connect('localhost', 'root', '', 'ecv_orm_project');
+		$link = @mysqli_connect('localhost', 'root', 'lucas31', 'ecv_orm_project');
 
 	if (!$link)
 		die("Failed to connect to MySQL: " . mysqli_connect_error());

@@ -3,11 +3,12 @@
 
     class User extends Table {
 
+        public static $primary_key_field_name = 'id_user';
+        public static $table_name = 'users';
+        public static $fields_names = ['email', 'password'];
+
         public function __construct() {
-            $table_name = 'posts';
-            $primary_key_field_name = 'id';
-            $fields_names = ['title', 'description', 'created', 'modifed', 'is_user'];
-            parent::__construct($table_name, $primary_key_field_name, $fields_names);
+            
         }
 
         public function hydrate() {

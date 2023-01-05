@@ -6,7 +6,7 @@
 
         public static $table_name = 'comments';
         public static $primary_key_field_name = 'id_comment';
-        public static $fields_names = ['post_id', 'content', 'user', 'created_at'];
+        public static $fields_names = ['post_id', 'content', 'id_user', 'created_at'];
 
         public function __construct() {
             // $table_name = 'posts';
@@ -17,6 +17,7 @@
 
         public function hydrate() {
             parent::hydrate();
+            $this->user = User::getOne($this->id_user);
         }
 
     }
