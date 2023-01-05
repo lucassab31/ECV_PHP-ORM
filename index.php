@@ -93,10 +93,13 @@
             elseif($sPage == 'user-login'){
                 require_once('./Views/auth/login.php');
             }
-            elseif($sPage == 'user-register'){
+            elseif($sPage == 'register'){
                 require_once('./Views/auth/register.php');
             }
             elseif($sPage == 'user-store'){
+                require_once('./Controllers/UserController.php');
+                $oUser = UserController::store();
+                header('Location: ?page=post-add');
                 require_once('./Views/auth/register.php');
             }
             else 
